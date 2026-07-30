@@ -1,5 +1,7 @@
 # WillGuide
 
+**Repo:** https://github.com/jlchristensen/willguide
+
 Affordable guided drafting for a **draft** last will and estate plan packet.
 
 WillGuide walks someone through plain-language questions, explains terms with optional AI help, then **assembles documents from templates** (not freeform AI writing). Outputs include:
