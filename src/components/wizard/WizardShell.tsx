@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { AssistPanel } from "@/components/wizard/AssistPanel";
+import { WizardProgress } from "@/components/wizard/WizardProgress";
 import {
   useWizard,
   type WizardStepId,
@@ -15,6 +16,7 @@ import { AssetsStep } from "@/components/wizard/steps/AssetsStep";
 import { BequestsStep } from "@/components/wizard/steps/BequestsStep";
 import { WishesStep } from "@/components/wizard/steps/WishesStep";
 import { ReviewStep } from "@/components/wizard/steps/ReviewStep";
+import { TrustNote } from "@/components/TrustNote";
 import type { AssistTopic } from "@/lib/assist-fallback";
 
 const TOPIC_BY_STEP: Record<WizardStepId, AssistTopic> = {
@@ -60,21 +62,23 @@ export function WizardShell() {
 
   return (
     <div className="atmosphere min-h-screen">
-      <header className="no-print border-b border-line/70 bg-white/60 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="font-display text-lg text-ink">
-            WillGuide
-          </Link>
-          <p className="text-xs text-ink-soft">
-            Step {stepIndex + 1} of {steps.length}
-          </p>
+      <header className="no-print">
+        <div className="border-b border-line bg-paper">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+            <Link href="/" className="font-display text-lg text-ink">
+              WillGuide
+            </Link>
+            <p className="hidden text-xs text-ink-soft sm:block">
+              About 15–25 minutes · Save by finishing your packet
+            </p>
+          </div>
         </div>
-        <div className="h-1 w-full bg-line/40">
-          <div
-            className="h-1 bg-sage transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
+        <WizardProgress
+          steps={steps}
+          stepIndex={stepIndex}
+          stepId={stepId}
+          progress={progress}
+        />
       </header>
 
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 lg:grid-cols-[1fr_320px]">
@@ -110,9 +114,13 @@ export function WizardShell() {
               </button>
             </div>
           )}
+
+          <div className="no-print mt-12 border-t border-line/70 pt-6">
+            <TrustNote />
+          </div>
         </div>
 
-        <div className="no-print lg:sticky lg:top-6 lg:self-start">
+        <div className="no-print space-y-4 lg:sticky lg:top-6 lg:self-start">
           <AssistPanel defaultTopic={TOPIC_BY_STEP[stepId]} />
         </div>
       </div>

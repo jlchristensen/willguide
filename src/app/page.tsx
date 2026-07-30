@@ -1,118 +1,158 @@
 import Link from "next/link";
+import { PACKET_DELIVERABLES } from "@/components/TrustNote";
+
+const STEPS = [
+  {
+    n: "1",
+    t: "Answer guided questions",
+    d: "About 15–25 minutes covering family, executor, guardians, assets, and gifts — one clear decision at a time.",
+  },
+  {
+    n: "2",
+    t: "Get plain-language help",
+    d: "Every legal term is explained in ordinary English, with common choices people make in your situation.",
+  },
+  {
+    n: "3",
+    t: "Leave with a complete packet",
+    d: "A draft will, an estate summary, and a signing checklist matched to your state.",
+  },
+];
 
 export default function HomePage() {
   return (
-    <main className="flex-1">
-      <section className="hero-atmosphere relative min-h-[100svh] text-white">
-        <div className="absolute inset-0 animate-soft-in opacity-40">
-          <div className="absolute -left-20 top-24 h-64 w-64 rounded-full bg-sage/30 blur-3xl" />
-          <div className="absolute bottom-10 right-0 h-72 w-72 rounded-full bg-sand/20 blur-3xl" />
-        </div>
-
-        <header className="no-print relative z-10 mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-6">
-          <p className="font-display text-xl tracking-tight md:text-2xl">WillGuide</p>
-          <Link
-            href="/start"
-            className="text-sm text-white/80 transition hover:text-white"
-          >
-            Start
-          </Link>
-        </header>
-
-        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-5rem)] w-full max-w-5xl flex-col justify-end px-6 pb-16 pt-24 md:pb-24">
-          <h1 className="font-display animate-fade-up max-w-3xl text-5xl leading-[1.05] tracking-tight md:text-7xl">
-            WillGuide
-          </h1>
-          <p className="animate-fade-up-delay mt-5 max-w-xl text-lg text-white/85 md:text-xl">
-            An affordable, calm path from first questions to a legally organized
-            draft will and estate plan packet.
-          </p>
-          <div className="animate-fade-up-delay mt-10 flex flex-wrap gap-4">
+    <main className="flex-1 bg-paper">
+      <header className="border-b border-line">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-5">
+          <p className="font-display text-xl text-ink">WillGuide</p>
+          <nav className="flex items-center gap-6">
+            <a
+              href="#how"
+              className="hidden text-sm text-ink-soft transition hover:text-ink sm:block"
+            >
+              How it works
+            </a>
+            <a
+              href="#packet"
+              className="hidden text-sm text-ink-soft transition hover:text-ink sm:block"
+            >
+              What&apos;s included
+            </a>
             <Link
               href="/start"
-              className="rounded-md bg-white px-6 py-3 text-sm font-semibold text-ink transition hover:bg-mist"
+              className="rounded-sm bg-sage px-4 py-2 text-sm font-medium text-white transition hover:bg-sage-deep"
+            >
+              Start your will
+            </Link>
+          </nav>
+        </div>
+      </header>
+
+      <section className="mx-auto w-full max-w-5xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
+        <div className="max-w-2xl">
+          <h1 className="font-display text-4xl leading-tight text-ink md:text-5xl md:leading-[1.15]">
+            Put your wishes in writing, without the overwhelm.
+          </h1>
+          <p className="mt-6 text-lg leading-relaxed text-ink-soft">
+            WillGuide walks you through the decisions that matter and assembles
+            them into an organized draft will and estate plan packet — clear
+            enough to review with your family, or bring to an attorney.
+          </p>
+          <div className="mt-9 flex flex-wrap items-center gap-4">
+            <Link
+              href="/start"
+              className="rounded-sm bg-sage px-6 py-3 text-sm font-medium text-white transition hover:bg-sage-deep"
             >
               Start your will
             </Link>
             <a
               href="#how"
-              className="rounded-md border border-white/35 px-6 py-3 text-sm text-white/90 transition hover:border-white/70"
+              className="text-sm font-medium text-ink underline decoration-line underline-offset-4 transition hover:decoration-ink"
             >
-              How it works
+              See how it works
             </a>
           </div>
+          <p className="mt-8 text-sm text-ink-soft">
+            WillGuide is not a law firm. Your documents are drafts for review —
+            not legal advice.
+          </p>
         </div>
       </section>
 
-      <section id="how" className="atmosphere border-t border-line/60 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="font-display text-3xl text-ink md:text-4xl">
-            Guided answers. Organized draft. Clear next steps.
-          </h2>
-          <p className="mt-4 max-w-2xl text-ink-soft">
-            WillGuide asks the decisions that matter, explains terms in plain
-            language, then assembles a draft packet from your answers — not from
-            freeform AI guessing.
-          </p>
-
-          <ol className="mt-12 grid gap-10 md:grid-cols-3">
-            {[
-              {
-                n: "01",
-                t: "Answer guided questions",
-                d: "Family, executor, guardians, assets, and gifts — one step at a time.",
-              },
-              {
-                n: "02",
-                t: "Get plain-language help",
-                d: "Stuck on a word? Ask for a short explanation without legal jargon.",
-              },
-              {
-                n: "03",
-                t: "Download your packet",
-                d: "Draft will, estate summary, and a signing checklist for your state.",
-              },
-            ].map((item) => (
-              <li key={item.n}>
-                <p className="text-xs font-semibold tracking-[0.2em] text-sage">
-                  {item.n}
-                </p>
+      <section id="how" className="border-t border-line bg-mist">
+        <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
+          <h2 className="font-display text-3xl text-ink">How it works</h2>
+          <div className="mt-10 grid gap-x-10 gap-y-10 md:grid-cols-3">
+            {STEPS.map((item) => (
+              <div key={item.n} className="border-t border-ink/20 pt-5">
+                <p className="text-sm font-medium text-ink-soft">Step {item.n}</p>
                 <h3 className="font-display mt-2 text-xl text-ink">{item.t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-ink-soft">
                   {item.d}
                 </p>
-              </li>
+              </div>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
-      <section className="border-t border-line/60 bg-ink px-6 py-16 text-white">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="font-display text-2xl md:text-3xl">Built for simple situations</h2>
-          <p className="mt-4 max-w-2xl text-white/75">
-            If you own a business, hold foreign assets, have a large or conflicted
-            estate, or care for a special-needs dependent, we&apos;ll steer you
-            toward an attorney instead of pretending a DIY draft is enough.
-          </p>
-          <p className="mt-8 max-w-2xl text-sm text-white/55">
-            WillGuide is not a law firm and does not provide legal advice. Documents
-            are drafts for review. State formalities vary — follow your signing
-            checklist and get professional help when needed.
-          </p>
-          <Link
-            href="/start"
-            className="mt-10 inline-block rounded-md bg-sage px-6 py-3 text-sm font-semibold text-white transition hover:bg-sage-deep"
-          >
-            Begin the guide
-          </Link>
+      <section id="packet" className="border-t border-line">
+        <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
+          <div className="grid gap-10 md:grid-cols-[2fr_3fr]">
+            <div>
+              <h2 className="font-display text-3xl text-ink">
+                What&apos;s in your packet
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-ink-soft">
+                Your answers are assembled into structured documents from
+                carefully written templates — not improvised by AI. What you
+                see is exactly what your answers produced.
+              </p>
+            </div>
+            <ul className="divide-y divide-line border-y border-line">
+              {PACKET_DELIVERABLES.map((item) => (
+                <li key={item.title} className="py-5">
+                  <p className="font-medium text-ink">{item.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink-soft">
+                    {item.detail}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
-      <footer className="border-t border-line bg-paper px-6 py-8 text-sm text-ink-soft">
-        <div className="mx-auto flex max-w-5xl flex-col gap-2 md:flex-row md:items-center md:justify-between">
-          <p className="font-display text-ink">WillGuide</p>
-          <p>Educational drafting tools. Not legal advice.</p>
+      <section className="border-t border-line bg-mist">
+        <div className="mx-auto w-full max-w-5xl px-6 py-16 md:py-20">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl text-ink">
+              Honest about our limits
+            </h2>
+            <p className="mt-4 leading-relaxed text-ink-soft">
+              WillGuide is built for straightforward situations. If you own a
+              business, hold assets abroad, have a large or contested estate, or
+              care for a dependent with special needs, we&apos;ll tell you
+              plainly — and point you to a licensed estate attorney instead of
+              pretending a do-it-yourself draft is enough.
+            </p>
+            <Link
+              href="/start"
+              className="mt-8 inline-block rounded-sm bg-sage px-6 py-3 text-sm font-medium text-white transition hover:bg-sage-deep"
+            >
+              Begin the guide
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-line">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-6 py-8 text-sm text-ink-soft md:flex-row md:items-center md:justify-between">
+          <p className="font-display text-base text-ink">WillGuide</p>
+          <p>
+            Educational drafting tools. Not a law firm. Not legal advice. State
+            laws vary — review documents before signing.
+          </p>
         </div>
       </footer>
     </main>

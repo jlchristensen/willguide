@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function AttorneyPage() {
   return (
     <main className="atmosphere min-h-screen">
-      <header className="border-b border-line/70 bg-white/70 backdrop-blur">
+      <header className="border-b border-line bg-paper">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
           <Link href="/" className="font-display text-lg text-ink">
             WillGuide

@@ -49,7 +49,7 @@ export function AssistPanel({ defaultTopic = "general" }: { defaultTopic?: Assis
   }
 
   return (
-    <aside className="rounded-lg border border-line bg-white/70 p-4 backdrop-blur md:p-5">
+    <aside className="border border-line bg-white p-4 md:p-5">
       <h2 className="font-display text-lg text-ink">Plain-language help</h2>
       <p className="mt-1 text-xs text-ink-soft">
         Explanations only — WillGuide will not invent legal clauses here.

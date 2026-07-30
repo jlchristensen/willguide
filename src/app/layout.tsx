@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Fraunces, Source_Sans_3 } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Source_Serif_4({
   variable: "--font-display",
   subsets: ["latin"],
 });
 
-const body = Source_Sans_3({
+const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "WillGuide — Draft your will with calm, guided clarity",
+  title: "WillGuide — A clear, guided draft will and estate plan",
   description:
-    "An affordable guided path to a legally organized draft will and estate plan packet. Educational drafting — not a law firm.",
+    "Answer plain-language questions and leave with an organized draft will, estate summary, and signing checklist. Educational drafting — not a law firm.",
 };
 
 export default function RootLayout({

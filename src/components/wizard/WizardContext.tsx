@@ -14,17 +14,9 @@ import {
   type EstatePlanDraft,
 } from "@/lib/schema";
 import { loadDraft, saveDraft } from "@/lib/storage";
+import type { WizardStepId } from "@/lib/step-labels";
 
-export type WizardStepId =
-  | "personal"
-  | "complexity"
-  | "beneficiaries"
-  | "executor"
-  | "guardians"
-  | "assets"
-  | "bequests"
-  | "wishes"
-  | "review";
+export type { WizardStepId };
 
 const BASE_STEPS: WizardStepId[] = [
   "personal",

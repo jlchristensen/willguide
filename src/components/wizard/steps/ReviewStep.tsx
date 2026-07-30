@@ -5,6 +5,10 @@ import { useState } from "react";
 import { useWizard } from "@/components/wizard/WizardContext";
 import { StepShell, Field, inputClass } from "@/components/wizard/fields";
 import {
+  PACKET_DELIVERABLES,
+  TrustNote,
+} from "@/components/TrustNote";
+import {
   hasComplexityFlags,
   isDraftReadyForGenerate,
 } from "@/lib/schema";
@@ -56,10 +60,27 @@ export function ReviewStep() {
 
   return (
     <StepShell
-      title="Review & generate"
-      description="Check your answers, then assemble your draft packet. Complex situations are redirected to an attorney recommendation."
+      title="You’re ready for your packet"
+      description="Glance over your answers, then we’ll assemble three organized documents from them — not freeform AI guessing."
     >
+      <div className="rounded-lg border border-sage/25 bg-sage/5 px-4 py-4">
+        <p className="text-xs font-semibold tracking-[0.14em] text-sage uppercase">
+          What you’ll get
+        </p>
+        <ul className="mt-3 space-y-3">
+          {PACKET_DELIVERABLES.map((item) => (
+            <li key={item.title}>
+              <p className="text-sm font-semibold text-ink">{item.title}</p>
+              <p className="text-sm text-ink-soft">{item.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="space-y-3 rounded-md border border-line bg-white p-4 text-sm text-ink">
+        <p className="text-xs font-semibold tracking-[0.14em] text-ink-soft uppercase">
+          Your answers
+        </p>
         <Row
           label="You"
           value={`${draft.personal.fullName || "—"}, ${draft.personal.city || "—"}, ${draft.personal.state || "—"}`}
@@ -87,24 +108,32 @@ export function ReviewStep() {
         ) : null}
         <Row
           label="Assets listed"
-          value={String(draft.assets.length)}
+          value={
+            draft.assets.length
+              ? `${draft.assets.length} item${draft.assets.length === 1 ? "" : "s"}`
+              : "None yet (optional)"
+          }
           onEdit={() => goTo("assets")}
         />
         <Row
           label="Specific gifts"
-          value={String(draft.bequests.length)}
+          value={
+            draft.bequests.length
+              ? `${draft.bequests.length} gift${draft.bequests.length === 1 ? "" : "s"}`
+              : "None"
+          }
           onEdit={() => goTo("bequests")}
         />
         <Row
-          label="Complexity flags"
-          value={complex ? "Yes — attorney path recommended" : "None"}
+          label="Fit check"
+          value={complex ? "Attorney path recommended" : "Simple draft path"}
           onEdit={() => goTo("complexity")}
         />
       </div>
 
       <Field
         label="Email for your packet (optional)"
-        hint="We'll use this if you choose to email yourself a copy on the next screen."
+        hint="You can email yourself a copy on the next screen."
       >
         <input
           className={inputClass}
@@ -119,8 +148,9 @@ export function ReviewStep() {
 
       {complex ? (
         <p className="rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">
-          Complexity flags are on. Continuing will take you to our attorney
-          recommendation instead of a DIY draft download.
+          Your fit check suggests a licensed attorney is safer than a DIY draft.
+          Continue for a clear next-step recommendation — your answers still help
+          you prepare for that conversation.
         </p>
       ) : null}
 
@@ -136,14 +166,16 @@ export function ReviewStep() {
         type="button"
         onClick={generate}
         disabled={loading}
-        className="w-full rounded-md bg-sage px-4 py-3 text-sm font-semibold text-white transition hover:bg-sage-deep disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-md bg-sage px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-sage-deep disabled:opacity-60 sm:w-auto"
       >
         {loading
-          ? "Assembling…"
+          ? "Assembling your packet…"
           : complex
             ? "See attorney recommendation"
-            : "Generate draft packet"}
+            : "Assemble my draft packet"}
       </button>
+
+      <TrustNote />
     </StepShell>
   );
 }
@@ -163,7 +195,7 @@ function Row({
         <p className="text-xs uppercase tracking-wide text-ink-soft">{label}</p>
         <p className="mt-0.5 text-ink">{value}</p>
       </div>
-      <button type="button" className="text-xs text-sage" onClick={onEdit}>
+      <button type="button" className="text-xs font-medium text-sage" onClick={onEdit}>
         Edit
       </button>
     </div>

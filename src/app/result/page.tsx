@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {
+  AFTER_PACKET_STEPS,
+  PACKET_DELIVERABLES,
+  TrustNote,
+} from "@/components/TrustNote";
 import { loadDraft, loadPacketText } from "@/lib/storage";
 
 export default function ResultPage() {
   const [packet, setPacket] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+  const [state, setState] = useState("");
   const [status, setStatus] = useState("");
   const [sending, setSending] = useState(false);
 
@@ -16,6 +22,7 @@ export default function ResultPage() {
     const draft = loadDraft();
     if (draft?.email) setEmail(draft.email);
     if (draft?.personal.fullName) setFullName(draft.personal.fullName);
+    if (draft?.personal.state) setState(draft.personal.state);
   }, []);
 
   function download() {
@@ -87,7 +94,7 @@ export default function ResultPage() {
 
   return (
     <main className="atmosphere min-h-screen">
-      <header className="no-print border-b border-line/70 bg-white/70 backdrop-blur">
+      <header className="no-print border-b border-line bg-paper">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <Link href="/" className="font-display text-lg text-ink">
             WillGuide
@@ -112,14 +119,43 @@ export default function ResultPage() {
       </header>
 
       <div className="mx-auto max-w-4xl px-6 py-10">
-        <div className="no-print mb-8">
-          <h1 className="font-display text-3xl text-ink">Your draft packet</h1>
-          <p className="mt-2 text-sm text-ink-soft">
-            Review carefully. Use Print to save a PDF from your browser. This is
-            a draft for education and organization — not legal advice.
+        <div className="no-print mb-10">
+          <p className="text-xs font-semibold tracking-[0.16em] text-sage uppercase">
+            Packet ready
+          </p>
+          <h1 className="font-display mt-2 text-3xl text-ink md:text-4xl">
+            {fullName ? `${fullName.split(" ")[0]}, your draft packet is ready` : "Your draft packet is ready"}
+          </h1>
+          <p className="mt-3 max-w-2xl text-ink-soft">
+            Everything below was assembled from your answers into one organized
+            file{state ? ` for ${state}` : ""}. Read it before you sign anything.
           </p>
 
-          <div className="mt-6 flex flex-col gap-3 rounded-lg border border-line bg-white/80 p-4 sm:flex-row sm:items-end">
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {PACKET_DELIVERABLES.map((item, i) => (
+              <div
+                key={item.title}
+                className="border-t border-sage/40 pt-3"
+              >
+                <p className="text-xs font-semibold tracking-[0.14em] text-sage">
+                  0{i + 1}
+                </p>
+                <p className="mt-1 font-display text-lg text-ink">{item.title}</p>
+                <p className="mt-1 text-sm text-ink-soft">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 border border-line bg-white px-5 py-5">
+            <p className="text-sm font-semibold text-ink">What to do next</p>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-ink-soft">
+              {AFTER_PACKET_STEPS.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="mt-6 flex flex-col gap-3 border border-line bg-white p-4 sm:flex-row sm:items-end">
             <label className="flex-1 text-sm text-ink">
               Email a copy to yourself
               <input
@@ -140,15 +176,22 @@ export default function ResultPage() {
             </button>
           </div>
           {status ? <p className="mt-2 text-sm text-ink-soft">{status}</p> : null}
+
+          <div className="mt-6">
+            <TrustNote />
+          </div>
         </div>
 
+        <p className="no-print mb-3 text-xs font-semibold tracking-[0.14em] text-ink-soft uppercase">
+          Full packet
+        </p>
         <article className="print-packet whitespace-pre-wrap rounded-lg border border-line bg-white p-6 font-mono text-xs leading-relaxed text-ink md:p-8 md:text-sm">
           {packet}
         </article>
 
         <p className="no-print mt-8 text-center text-sm text-ink-soft">
-          <Link href="/start" className="text-sage underline">
-            Edit answers
+          <Link href="/start" className="font-medium text-sage underline">
+            Edit answers and rebuild
           </Link>
         </p>
       </div>

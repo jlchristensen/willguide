@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #1c2430;
-  --ink-soft: #3d4a5c;
-  --mist: #e8eef2;
-  --paper: #f5f7f8;
-  --sage: #3d6b63;
-  --sage-deep: #2c524c;
-  --sand: #d4cfc4;
-  --line: #c5ced6;
-  --danger: #8b3a3a;
+  --ink: #1b2733;
+  --ink-soft: #52606d;
+  --paper: #ffffff;
+  --mist: #f4f5f3;
+  --sand: #efece6;
+  --sage: #1f4d46;
+  --sage-deep: #143530;
+  --line: #dcdfe3;
+  --danger: #9b3d32;
   --background: var(--paper);
   --foreground: var(--ink);
 }
@@ -34,56 +34,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
   font-family: var(--font-display), Georgia, serif;
 }
 
+/* Quiet, uniform page background for app screens */
 .atmosphere {
-  background:
-    radial-gradient(ellipse 80% 50% at 20% 0%, rgba(61, 107, 99, 0.12), transparent 55%),
-    radial-gradient(ellipse 70% 45% at 90% 10%, rgba(212, 207, 196, 0.45), transparent 50%),
-    linear-gradient(180deg, #eef2f4 0%, var(--paper) 45%, #ebe6dc 100%);
-}
-
-.hero-atmosphere {
-  background:
-    linear-gradient(105deg, rgba(28, 36, 48, 0.72) 0%, rgba(28, 36, 48, 0.45) 45%, rgba(28, 36, 48, 0.25) 100%),
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
-    linear-gradient(160deg, #2c524c 0%, #1c2430 48%, #3d4a5c 100%);
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes soft-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.7s ease-out both;
-}
-
-.animate-fade-up-delay {
-  animation: fade-up 0.7s ease-out 0.15s both;
-}
-
-.animate-soft-in {
-  animation: soft-in 1s ease-out both;
+  background: #fafaf9;
 }
 
 @media print {
